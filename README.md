@@ -13,20 +13,6 @@ VLM-based E2E driving: Qwen3-VL-4B with QLoRA, CoVLA pre-training + WOD-E2E fine
 | **RFS** | **7.70** | 8.05 | 0.35 |
 | Training GPU | Single RTX 4090 | Multi-GPU cluster | — |
 
-## Competitive Landscape
-
-| Method | RFS | ADE 3s | Base Model | Params | RL |
-|--------|-----|--------|------------|--------|----|
-| NTR (#1) | 8.05 | 1.17m | DINO | 888M | — |
-| Poutine (#3) | 7.99 | 1.21m | Qwen2.5-VL-3B | 3B | GRPO |
-| qwer (#5) | 7.88 | 1.86m | **Qwen3-VL-4B** | 4B | — |
-| FROST-Drive (#6) | 7.86 | 2.54m | InternVL3-78B | 105M learnable | — |
-| **CTL-Drive (#15)** | **7.70** | **1.28m** | **Qwen3-VL-4B** | **4B** | **None** |
-
-- **4B vs 78B**: CTL-Drive (4B params) is within 0.15 RFS of FROST-Drive (78B InternVL3)
-- **Same base model**: *qwer* uses identical Qwen3-VL-4B and ranks #5 — the 0.17 RFS gap is the clearest target for GRPO RL
-- **Top 3 all use RL** — we don't (yet)
-
 ## Method
 
 - **Base model:** Qwen3-VL-4B with QLoRA (r=128, alpha=256)
