@@ -4,11 +4,11 @@
 
 ## Results
 
-| Metric | Ours (#15) | #1 (Poutine) | Gap |
+| Metric | Ours (#15) | #1 (NTR) | Gap |
 |--------|-----------|--------------|-----|
 | **ADE @ 3s** | **1.28m** | 1.17m | 0.11m |
-| **ADE @ 5s** | **2.99m** | 2.60m | 0.39m |
-| **RFS** | **7.70** | 7.99 | 0.29 |
+| **ADE @ 5s** | **2.99m** | 2.63m | 0.36m |
+| **RFS** | **7.70** | 8.05 | 0.35 |
 | RL Stage | None | GRPO (full) | — |
 | Training GPU | Single RTX 4090 | Multi-GPU cluster | — |
 
@@ -22,7 +22,7 @@
 
 ## Key Finding
 
-The model achieves near-#1 performance without any RL. The critical factor was correct inference pipeline alignment — prompt format matching, proper adapter loading, and sufficient output token length. With GRPO RL on Google TPU Research Cloud, we expect to surpass the current 7.99 RFS benchmark.
+The model achieves near-#1 performance without any RL. The critical factor was correct inference pipeline alignment — prompt format matching, proper adapter loading, and sufficient output token length. With GRPO RL on Google TPU Research Cloud, we expect to close the remaining gap to the #1 entry.
 
 ## Acknowledgments
 
