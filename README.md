@@ -1,6 +1,6 @@
 # CTL-Drive
 
-**[Ranked #15](https://waymo.com/open/challenges/e2e-driving/results/b34f2412-5a6e/1772305880072000/) on the [Waymo Open Dataset E2E Driving Challenge](https://waymo.com/open/challenges/e2e-driving/)** — trained on a single RTX 4090, no reinforcement learning.
+**[Ranked #15](https://waymo.com/open/challenges/e2e-driving/results/b34f2412-5a6e/1772305880072000/) on the [Waymo Open Dataset E2E Driving Challenge](https://waymo.com/open/challenges/e2e-driving/)** — trained on a single RTX 4090.
 
 VLM-based E2E driving: Qwen3-VL-4B with QLoRA, CoVLA pre-training + WOD-E2E fine-tuning + proto intent conditioning, front camera only, text-encoded trajectories.
 
@@ -11,8 +11,21 @@ VLM-based E2E driving: Qwen3-VL-4B with QLoRA, CoVLA pre-training + WOD-E2E fine
 | **ADE @ 3s** | **1.28m** | 1.17m | 0.11m |
 | **ADE @ 5s** | **2.99m** | 2.63m | 0.36m |
 | **RFS** | **7.70** | 8.05 | 0.35 |
-| RL Stage | None | GRPO (full) | — |
 | Training GPU | Single RTX 4090 | Multi-GPU cluster | — |
+
+## Competitive Landscape
+
+| Method | RFS | ADE 3s | Base Model | Params | RL |
+|--------|-----|--------|------------|--------|----|
+| NTR (#1) | 8.05 | 1.17m | DINO | 888M | — |
+| Poutine (#3) | 7.99 | 1.21m | Qwen2.5-VL-3B | 3B | GRPO |
+| qwer (#5) | 7.88 | 1.86m | **Qwen3-VL-4B** | 4B | — |
+| FROST-Drive (#6) | 7.86 | 2.54m | InternVL3-78B | 105M learnable | — |
+| **CTL-Drive (#15)** | **7.70** | **1.28m** | **Qwen3-VL-4B** | **4B** | **None** |
+
+- **4B vs 78B**: CTL-Drive (4B params) is within 0.15 RFS of FROST-Drive (78B InternVL3)
+- **Same base model**: *qwer* uses identical Qwen3-VL-4B and ranks #5 — the 0.17 RFS gap is the clearest target for GRPO RL
+- **Top 3 all use RL** — we don't (yet)
 
 ## Method
 
@@ -20,11 +33,6 @@ VLM-based E2E driving: Qwen3-VL-4B with QLoRA, CoVLA pre-training + WOD-E2E fine
 - **Stage 1a:** CoVLA pre-training (228K frames, SFT)
 - **Stage 1b:** WOD-E2E fine-tuning (90K samples, front-camera only, turn-balanced)
 - **Features:** Intent conditioning, turn-aware fallback, text-encoded trajectories
-- **No reinforcement learning applied** — GRPO RL coming next on TPU pods
-
-## Key Finding
-
-The model achieves near-#1 performance without any RL. The critical factor was correct inference pipeline alignment — prompt format matching, proper adapter loading, and sufficient output token length. With GRPO RL on Google TPU Research Cloud, we expect to close the remaining gap to the #1 entry.
 
 ## Acknowledgments
 
