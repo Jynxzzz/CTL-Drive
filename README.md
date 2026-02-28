@@ -1,27 +1,28 @@
 # CTL-Drive
 
-**Ranked #15 on the [Waymo Open Dataset E2E Driving Challenge](https://waymo.com/open/challenges/e2e-driving/results/b34f2412-5a6e/1772305880072000/)**
-
-VLM-based end-to-end autonomous driving using text-encoded trajectories.
-
-## Method
-
-- **Base model:** Qwen3-VL-4B with QLoRA fine-tuning
-- **Training data:** 795K frames (WOD-E2E + CoVLA-style annotation)
-- **Input:** Front camera only, text-encoded trajectory output
-- **Features:** CoVLA pre-training, WOD-E2E fine-tuning, intent conditioning, turn-aware fallback
-- **Current stage:** Stage 1 (VLT pre-training) — GRPO reinforcement learning coming next
+**[Ranked #15](https://waymo.com/open/challenges/e2e-driving/results/b34f2412-5a6e/1772305880072000/) on the [Waymo Open Dataset E2E Driving Challenge](https://waymo.com/open/challenges/e2e-driving/)** — trained on a single RTX 4090, no reinforcement learning.
 
 ## Results
 
-| Metric | Value |
-|--------|-------|
-| Waymo E2E Challenge Rank | **#15** |
-| Submission | Stage 1 only (no RL) |
-| Training GPU | Single RTX 4090 (24 GB) |
-| Annotation Compute | Google TPU v4/v5e/v6e via TRC |
+| Metric | Ours (#15) | #1 (Poutine) | Gap |
+|--------|-----------|--------------|-----|
+| **ADE @ 3s** | **1.28m** | 1.17m | 0.11m |
+| **ADE @ 5s** | **2.99m** | 2.60m | 0.39m |
+| **RFS** | **7.70** | 7.99 | 0.29 |
+| RL Stage | None | GRPO (full) | — |
+| Training GPU | Single RTX 4090 | Multi-GPU cluster | — |
 
-> This ranking was achieved with only supervised pre-training on a single consumer GPU. Stage 1b fine-tuning and GRPO reinforcement learning on TPU pods are in progress.
+## Method
+
+- **Base model:** Qwen3-VL-4B with QLoRA (r=128, alpha=256)
+- **Stage 1a:** CoVLA pre-training (228K frames, SFT)
+- **Stage 1b:** WOD-E2E fine-tuning (90K samples, front-camera only, turn-balanced)
+- **Features:** Intent conditioning, turn-aware fallback, text-encoded trajectories
+- **No reinforcement learning applied** — GRPO RL coming next on TPU pods
+
+## Key Finding
+
+The model achieves near-#1 performance without any RL. The critical factor was correct inference pipeline alignment — prompt format matching, proper adapter loading, and sufficient output token length. With GRPO RL on Google TPU Research Cloud, we expect to surpass the current 7.99 RFS benchmark.
 
 ## Acknowledgments
 
