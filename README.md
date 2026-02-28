@@ -1,6 +1,6 @@
 # CTL-Drive
 
-**Ranked #55 on the [Waymo Open Dataset E2E Driving Challenge](https://waymo.com/open/challenges/e2e-driving/results/b34f2412-5a6e/1772130932807000/)**
+**Ranked #15 on the [Waymo Open Dataset E2E Driving Challenge](https://waymo.com/open/challenges/e2e-driving/results/b34f2412-5a6e/1772305880072000/)**
 
 VLM-based end-to-end autonomous driving using text-encoded trajectories.
 
@@ -16,7 +16,7 @@ VLM-based end-to-end autonomous driving using text-encoded trajectories.
 
 | Metric | Value |
 |--------|-------|
-| Waymo E2E Challenge Rank | **#55** |
+| Waymo E2E Challenge Rank | **#15** |
 | Submission | Stage 1 only (no RL) |
 | Training GPU | Single RTX 4090 (24 GB) |
 | Annotation Compute | Google TPU v4/v5e/v6e via TRC |
@@ -32,7 +32,7 @@ VLM-based end-to-end autonomous driving using text-encoded trajectories.
 ## Links
 
 - **Project Page:** [obsicat.com/poutine-e2e.html](https://obsicat.com/poutine-e2e.html)
-- **Leaderboard:** [Waymo E2E Driving Challenge](https://waymo.com/open/challenges/e2e-driving/results/b34f2412-5a6e/1772130932807000/)
+- **Leaderboard:** [Waymo E2E Driving Challenge](https://waymo.com/open/challenges/e2e-driving/results/b34f2412-5a6e/1772305880072000/)
 - **Author:** [Xingnan Zhou](https://obsicat.com) — PhD Candidate, Concordia University, Montreal
 
 ---
